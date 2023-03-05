@@ -29,7 +29,7 @@ public:
 	{
 		if (isFull())
 		{
-			throw runtime_error("Stack is Full!");
+			throw runtime_error("Stack Overflows! 😤");
 		}
 		top++;
 		array[top] = value;
@@ -39,7 +39,7 @@ public:
 	{
 		if (isEmpty())
 		{
-			throw runtime_error("Stack is Empty!");
+			throw runtime_error("Stack is Empty! 😴");
 		}
 		return array[top--];
 	}
@@ -48,12 +48,12 @@ public:
 	{
 		if (isEmpty())
 		{
-			throw runtime_error("Stack is Empty!");
+			throw runtime_error("Stack is Empty! 😴");
 		}
 		return array[top];
 	}
 
-	bool isEmpty()
+	bool isEmpty() const
 	{
 		return top == -1;
 	}
@@ -63,12 +63,16 @@ public:
 		return top + 1 == size;
 	}
 
-	void print()
+	friend ostream &operator<<(ostream &os, const Stack<T> &s)
 	{
-		for (int i = 0; i < top; i++)
+		if (s.isEmpty())
+			return os << "Stack: Currently Empty" << endl;
+		os << "Stack: ";
+		for (int i = 0; i < s.top + 1; i++)
 		{
-			cout << array[i] << " ";
+			os << s.array[i] << " ";
 		}
-		cout << endl;
+		os << endl;
+		return os;
 	}
 };
