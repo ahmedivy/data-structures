@@ -10,7 +10,7 @@ class Stack
 	private:
 		int size;
 		int top;
-		int *array;
+		T *array;
 
 	public:
 		Stack(int size)
@@ -31,8 +31,7 @@ class Stack
 			{
 				throw runtime_error("Stack Overflows! 😤");
 			}
-			top++;
-			array[top] = value;
+			array[++top] = value;
 		}
 
 		T pop()
