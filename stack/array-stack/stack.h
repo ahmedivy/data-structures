@@ -7,72 +7,72 @@ using namespace std;
 template <class T>
 class Stack
 {
-private:
-	int size;
-	int top;
-	int *array;
+	private:
+		int size;
+		int top;
+		int *array;
 
-public:
-	Stack(int size)
-	{
-		this->size = size;
-		this->top = -1;
-		this->array = new int[size];
-	}
-
-	~Stack()
-	{
-		delete[] array;
-	}
-
-	void push(T value)
-	{
-		if (isFull())
+	public:
+		Stack(int size)
 		{
-			throw runtime_error("Stack Overflows! 😤");
+			this->size = size;
+			this->top = -1;
+			this->array = new int[size];
 		}
-		top++;
-		array[top] = value;
-	}
 
-	T pop()
-	{
-		if (isEmpty())
+		~Stack()
 		{
-			throw runtime_error("Stack is Empty! 😴");
+			delete[] array;
 		}
-		return array[top--];
-	}
 
-	T peek()
-	{
-		if (isEmpty())
+		void push(T value)
 		{
-			throw runtime_error("Stack is Empty! 😴");
+			if (isFull())
+			{
+				throw runtime_error("Stack Overflows! 😤");
+			}
+			top++;
+			array[top] = value;
 		}
-		return array[top];
-	}
 
-	bool isEmpty() const
-	{
-		return top == -1;
-	}
-
-	bool isFull()
-	{
-		return top + 1 == size;
-	}
-
-	friend ostream &operator<<(ostream &os, const Stack<T> &s)
-	{
-		if (s.isEmpty())
-			return os << "Stack: Currently Empty" << endl;
-		os << "Stack: ";
-		for (int i = 0; i < s.top + 1; i++)
+		T pop()
 		{
-			os << s.array[i] << " ";
+			if (isEmpty())
+			{
+				throw runtime_error("Stack is Empty! 😴");
+			}
+			return array[top--];
 		}
-		os << endl;
-		return os;
-	}
+
+		T peek()
+		{
+			if (isEmpty())
+			{
+				throw runtime_error("Stack is Empty! 😴");
+			}
+			return array[top];
+		}
+
+		bool isEmpty() const
+		{
+			return top == -1;
+		}
+
+		bool isFull()
+		{
+			return top + 1 == size;
+		}
+
+		friend ostream &operator<<(ostream &os, const Stack<T> &s)
+		{
+			if (s.isEmpty())
+				return os << "Stack: Currently Empty" << endl;
+			os << "Stack: ";
+			for (int i = 0; i < s.top + 1; i++)
+			{
+				os << s.array[i] << " ";
+			}
+			os << endl;
+			return os;
+		}
 };
