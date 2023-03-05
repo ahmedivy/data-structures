@@ -10,6 +10,13 @@ int main()
     // Allocate memory for the array using malloc
     int *arr = (int *)malloc(n * sizeof(int));
 
+    // Check if memory was allocated successfully
+    if (arr == NULL)
+    {
+        std::cout << "Memory not allocated." << std::endl;
+        exit(0);
+    }
+
     // Initialize the array
     for (int i = 0; i < n; i++)
     {
@@ -29,6 +36,13 @@ int main()
     std::cout << "Enter the new size of the array: ";
     std::cin >> m;
     arr = (int *)realloc(arr, m * sizeof(int));
+
+    // Check if memory was allocated successfully
+    if (arr == NULL)
+    {
+        std::cout << "Memory not allocated." << std::endl;
+        exit(0);
+    }
 
     // Initialize the new elements of the array
     for (int i = n; i < m; i++)
