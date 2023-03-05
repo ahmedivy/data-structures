@@ -1,20 +1,74 @@
 #pragma once
 
-template <typename T>
+#include <iostream>
+
+using namespace std;
+
+template <class T>
 class Stack
 {
-public:
-    Stack(int size);
-    ~Stack();
-    void push(T value);
-    T pop();
-    T peek();
-    bool isEmpty();
-    bool isFull();
-    void print();
-
 private:
-    int size;
-    int top;
-    T *array;
+	int size;
+	int top;
+	int *array;
+
+public:
+	Stack(int size)
+	{
+		this->size = size;
+		this->top = -1;
+		this->array = new int[size];
+	}
+
+	~Stack()
+	{
+		delete[] array;
+	}
+
+	void push(T value)
+	{
+		if (isFull())
+		{
+			throw runtime_error("Stack is Full!");
+		}
+		top++;
+		array[top] = value;
+	}
+
+	T pop()
+	{
+		if (isEmpty())
+		{
+			throw runtime_error("Stack is Empty!");
+		}
+		return array[top--];
+	}
+
+	T peek()
+	{
+		if (isEmpty())
+		{
+			throw runtime_error("Stack is Empty!");
+		}
+		return array[top];
+	}
+
+	bool isEmpty()
+	{
+		return top == -1;
+	}
+
+	bool isFull()
+	{
+		return top + 1 == size;
+	}
+
+	void print()
+	{
+		for (int i = 0; i < top; i++)
+		{
+			cout << array[i] << " ";
+		}
+		cout << endl;
+	}
 };
