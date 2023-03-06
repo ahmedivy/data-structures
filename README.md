@@ -1,7 +1,7 @@
-# data-structures
+# Data Structures
 
 Data Structures and Algorithms in C++
 
-## Repo Diagram
+## Repository Diagram
 
 ![Repo Visualization](./diagram.svg)
