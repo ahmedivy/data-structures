@@ -21,73 +21,83 @@ int main()
     const char *ch = infixExp.c_str();
     string operand;
 
-    while (*ch)
+    while(*ch != '\0')
     {
+        if (isspace(*ch))
+        {
+            ch++;
+            continue;
+        }
+
         if (isdigit(*ch))
         {
             operand += *ch;
-        }
-        else if (*ch == '.')
-        {
-            operand += *ch;
-        }
-        else if (!operand.empty())
-        {
-            outputQueue.push(operand);
-            operand.clear();
-
-            if (isOperator(*ch))
+            ch++;
+            if (!isdigit(*ch))
             {
-                if (operatorsStack.empty())
+                outputQueue.push(operand);
+                operand = "";
+            }
+        }
+        else if (isOperator(*ch))
+        {
+            if (operatorsStack.empty())
+            {
+                operatorsStack.push(*ch);
+            }
+            else
+            {
+                if (precedence(*ch) > precedence(operatorsStack.top()))
                 {
                     operatorsStack.push(*ch);
                 }
                 else
                 {
-                    while (precedence(operatorsStack.top()) >= precedence(*ch))
+                    while (!operatorsStack.empty() && precedence(*ch) <= precedence(operatorsStack.top()))
                     {
-                        outputQueue.push(string(1, operatorsStack.top()));
+                        string op(1, operatorsStack.top());
+                        outputQueue.push(op);
                         operatorsStack.pop();
-                        if (operatorsStack.empty())
-                        {
-                            break;
-                        }
                     }
                     operatorsStack.push(*ch);
                 }
             }
-            else if (*ch == '(')
+            ch++;
+        }
+        else if (*ch == '(')
+        {
+            operatorsStack.push(*ch);
+            ch++;
+        }
+        else if (*ch == ')')
+        {
+            while (operatorsStack.top() != '(')
             {
-                operatorsStack.push(*ch);
-            }
-            else if (*ch == ')')
-            {
-                while (operatorsStack.top() != '(')
-                {
-                    outputQueue.push(string(1, operatorsStack.top()));
-                    operatorsStack.pop();
-                }
+                string op(1, operatorsStack.top());
+                outputQueue.push(op);
                 operatorsStack.pop();
             }
+            operatorsStack.pop();
+            ch++;
         }
-        ch++;
-    }
-
-    if (!operand.empty())
-    {
-        outputQueue.push(operand);
+        else
+        {
+            cout << "Invalid Expression" << endl;
+            return 0;
+        }
     }
 
     while (!operatorsStack.empty())
     {
-        outputQueue.push(string(1, operatorsStack.top()));
+        string op(1, operatorsStack.top());
+        outputQueue.push(op);
         operatorsStack.pop();
     }
 
     cout << "Postfix Expression: ";
     while (!outputQueue.empty())
     {
-        cout << outputQueue.front() << " ";
+        cout << outputQueue.front();
         outputQueue.pop();
     }
     cout << endl;
@@ -104,15 +114,15 @@ int precedence(char op)
 {
     switch (op)
     {
-    case '+':
-    case '-':
-        return 1;
-    case '*':
-    case '/':
-        return 2;
-    case '^':
-        return 3;
-    default:
-        return 0;
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+        default:
+            return 0;
     }
 }
