@@ -62,6 +62,20 @@ class Stack
 			return top + 1 == size;
 		}
 
+		string display()
+		{
+			if (isEmpty())
+			{
+				return "Stack: Currently Empty";
+			}
+			string result = "";
+			for (int i = 0; i < top + 1; i++)
+			{
+				result += to_string(array[i]) + " ";
+			}
+			return result;
+		}
+
 		friend ostream &operator<<(ostream &os, const Stack<T> &s)
 		{
 			if (s.isEmpty())
