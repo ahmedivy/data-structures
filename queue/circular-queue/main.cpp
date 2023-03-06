@@ -33,10 +33,10 @@ void printMenu()
             q.enqueue(data);
             break;
         case 2:
-            cout << q.dequeue() << endl;
+            cout << "Dequeued: " << q.dequeue() << endl;
             break;
         case 3:
-            cout << "Queue:" << q.display() << endl;
+            cout << "Queue: " << q.display() << endl;
             break;
         case 4:
             exit(0);
