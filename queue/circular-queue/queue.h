@@ -33,10 +33,6 @@ class Queue
 
         bool isFull()
         {
-            if(isEmpty())
-            {
-                return false;
-            }
             return (front == 0 && rear == size - 1) || (front == rear + 1);
         }
 
@@ -99,7 +95,7 @@ class Queue
             string result = "";
             if (isEmpty())
             {
-                return "Queue is empty";
+                return "Currently Empty";
             }
             else
             {
