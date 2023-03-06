@@ -66,7 +66,7 @@ class Stack
 		{
 			if (isEmpty())
 			{
-				return "Stack: Currently Empty";
+				return "Currently Empty";
 			}
 			string result = "";
 			for (int i = 0; i < top + 1; i++)
