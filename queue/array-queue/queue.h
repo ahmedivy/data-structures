@@ -27,7 +27,7 @@ class Queue
             delete[] array;
         }
 
-        bool isEmpty()
+        bool isEmpty() const
         {
             return front == -1 && back == -1;
         }
@@ -74,4 +74,17 @@ class Queue
             }
             return array[this->front];
         }
+
+        friend ostream &operator<<(ostream &os, const Queue<T> &q)
+		{
+			if (q.isEmpty())
+				return os << "Queue: Currently Empty" << endl;
+			os << "Queue: ";
+			for (int i = q.front; i < q.back + 1; i++)
+			{
+				os << q.array[i] << " ";
+			}
+			os << endl;
+			return os;
+		}
 };
