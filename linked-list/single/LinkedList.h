@@ -14,6 +14,7 @@ class LinkedList
                 T data;
                 Node* next;
                 Node(T data) : data(data), next(nullptr) {}
+                
         };
 
         Node* head;
@@ -23,8 +24,11 @@ class LinkedList
     public:
         LinkedList() : size(0), head(nullptr), tail(nullptr) {}
         ~LinkedList();
-        void insertBack(T data);
         void insertFront(T data);
+        void insertBack(T data);
+        void popFront();
+        void popBack();
+        int length();
         bool isEmpty();
         std::string display();
 
@@ -33,7 +37,15 @@ class LinkedList
 // Implementation of LinkedList Methods
 
 template <typename T>
-LinkedList<T>::~LinkedList() {}
+LinkedList<T>::~LinkedList() 
+{
+    Node* current = head;
+    while (current != nullptr) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+}
 
 template <typename T>
 void LinkedList<T>::insertFront(T data)
@@ -41,14 +53,14 @@ void LinkedList<T>::insertFront(T data)
     Node* newNode = new Node(data);
     if (isEmpty())
     {
-        this->head = this->tail = newNode;
+        head = tail = newNode;
     }
     else
     {
-        newNode->next = this->head;
-        this->head = newNode;
+        newNode->next = head;
+        head = newNode;
     }
-    this->size++;
+    size++;
 }
 
 template <typename T>
@@ -57,20 +69,26 @@ void LinkedList<T>::insertBack(T data)
     Node* newNode = new Node(data);
     if (isEmpty())
     {
-        this->head = this->tail = newNode;
+        head = tail = newNode;
     }
     else
     {
-        this->tail->next = newNode;
-        this->tail = newNode;
+        tail->next = newNode;
+        tail = newNode;
     }
-    this->size++;
+    size++;
 }
 
 template <typename T>
 bool LinkedList<T>::isEmpty()
 {
-    return this->head == nullptr && this->tail == nullptr;
+    return head == nullptr;
+}
+
+template <typename T>
+int LinkedList<T>::length()
+{
+    return size;
 }
 
 template <typename T>
@@ -81,13 +99,53 @@ std::string LinkedList<T>::display()
         return "Currently Empty!";
     }
     std::string result = "";
-    Node* current = this->head;
+    Node* current = head;
     while (current != nullptr) 
     {
         result += std::to_string(current->data) + " ";
         current = current->next;
     }
     return result;
+}
+
+template <typename T>
+void LinkedList<T>::popFront()
+{
+    if (head == nullptr)
+    {
+        throw std::runtime_error("List is Empty!");
+    }
+    Node *temp = head; // This is the node that is being deleted
+    head = head->next; // This is the new head
+    delete temp;
+    // If list becomes empty after deleting node
+    if (isEmpty())
+    {
+        tail = nullptr;
+    }
+    size--;
+}
+
+template <typename T>
+void LinkedList<T>::popBack()
+{
+    if (isEmpty())
+    {
+        throw std::runtime_error("List is Empty!");
+    }
+    if (head == tail)
+    {
+        delete head;
+        head = tail = nullptr;
+    }
+    Node *temp = head;
+    while (temp->next != tail) {
+        temp = temp->next;
+    }
+    delete tail;
+    tail = temp;
+    tail->next = nullptr;
+    size--;
 }
 
 #endif
