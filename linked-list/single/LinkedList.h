@@ -23,7 +23,8 @@ class LinkedList
     public:
         LinkedList() : size(0), head(nullptr), tail(nullptr) {}
         ~LinkedList();
-        void insert(T data);
+        void insertBack(T data);
+        void insertFront(T data);
         bool isEmpty();
         std::string display();
 
@@ -35,7 +36,23 @@ template <typename T>
 LinkedList<T>::~LinkedList() {}
 
 template <typename T>
-void LinkedList<T>::insert(T data)
+void LinkedList<T>::insertFront(T data)
+{
+    Node* newNode = new Node(data);
+    if (isEmpty())
+    {
+        this->head = this->tail = newNode;
+    }
+    else
+    {
+        newNode->next = this->head;
+        this->head = newNode;
+    }
+    this->size++;
+}
+
+template <typename T>
+void LinkedList<T>::insertBack(T data)
 {
     Node* newNode = new Node(data);
     if (isEmpty())
