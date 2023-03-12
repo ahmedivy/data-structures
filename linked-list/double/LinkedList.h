@@ -13,8 +13,8 @@ class LinkedList
             public:
                 T data;
                 Node* next;
-                Node(T data) : data(data), next(nullptr) {}
-                
+                Node* prev;
+                Node(T data) : data(data), next(nullptr), prev(nullptr) {}
         };
 
         Node* head;
@@ -73,6 +73,7 @@ void LinkedList<T>::insertBack(T data)
     }
     else
     {
+        newNode->prev = tail;
         tail->next = newNode;
         tail = newNode;
     }
@@ -133,18 +134,18 @@ void LinkedList<T>::popBack()
     {
         throw std::runtime_error("List is Empty!");
     }
-    if (head == tail)
+    else if (head == tail)
     {
         delete head;
         head = tail = nullptr;
     }
-    Node *temp = head;
-    while (temp->next != tail) {
-        temp = temp->next;
+    else
+    {
+        Node* temp = tail;
+        tail = tail->prev;
+        delete temp;
+        tail->next = nullptr;
     }
-    delete tail;
-    tail = temp;
-    tail->next = nullptr;
     size--;
 }
 
