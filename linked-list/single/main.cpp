@@ -6,19 +6,12 @@ int main()
 {
     LinkedList<int> ll;
 
-    if (ll.search(56) == -1)
-    {
-        std::cout << "56 not found" << std::endl;
-    }
-    else
-    {
-        std::cout << "56 found" << std::endl;
-    }
+    std::cout << (ll.search(56) == -1 ? "56 not found" : "56 found") << std::endl;
     
     ll.insertFront(56);
     ll.insertBack(7);
 
-    std::cout << (ll.search(7) != -1 ? "7 found" : "7 not found") << std::endl;
+    std::cout << (ll.search(7) == -1 ? "7 not found" : "7 found") << std::endl;
     std::cout << "Linked List: " << ll.display() << std::endl;
 
     ll.insertBack(4);
