@@ -30,4 +30,10 @@ void runTests()
     ll.insertBack(7);
     assert(ll.length() == 2);
     assert(ll.search(7) == 1);
+    ll.insertAt(1, 4);
+    assert(ll.length() == 3);
+    assert(ll.search(4) == 1);
+    ll.deleteAt(1);
+    assert(ll.length() == 3);
+    assert(ll.search(4) == -1);
 }
