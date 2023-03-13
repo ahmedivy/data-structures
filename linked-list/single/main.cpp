@@ -27,5 +27,12 @@ int main()
     ll.deleteAt(2);
     std::cout << "Linked List: " << ll.display() << std::endl;
 
+    ll.insertAt(2, 100);
+    ll.insertBack(200);
+    std::cout << "Linked List: " << ll.display() << std::endl;
+
+    ll.reverse();
+    std::cout << "Linked List: " << ll.display() << std::endl;
+
     return 0;
 }

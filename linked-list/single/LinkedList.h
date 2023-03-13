@@ -32,6 +32,7 @@ class LinkedList
         void deleteBack();
         int length();
         bool isEmpty();
+        void reverse();
         std::string display();
         Node& getHeadPtr()
         {
@@ -248,6 +249,24 @@ void LinkedList<T>::deleteBack()
     tail = temp;
     tail->next = nullptr;
     size--;
+}
+
+template <typename T>
+void LinkedList<T>::reverse()
+{
+    Node* current = head;
+    Node* prev = nullptr;
+    Node* next = nullptr;
+
+    tail = head;
+    while (current != nullptr)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
 }
 
 #endif
