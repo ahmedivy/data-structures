@@ -4,25 +4,35 @@
 
 int main() 
 {
-    LinkedList<int> list;
-    std::cout << "Linked List: " << list.display() << std::endl;
-    list.insertBack(42);
-    std::cout << "Linked List: " << list.display() << std::endl;
-    list.insertBack(60);
-    std::cout << "Linked List: " << list.display() << std::endl;
-    list.insertFront(34);
-    std::cout << "Linked List: " << list.display() << std::endl;
-    list.popFront();
-    list.popFront();
-    list.popFront();
-    std::cout << "Linked List: " << list.display() << std::endl;
-    list.insertBack(12);
-    list.insertBack(17);
-    list.insertBack(23);
-    std::cout << "Linked List: " << list.display() << std::endl;
-    list.popBack();
-    std::cout << "Linked List: " << list.display() << std::endl;
-    std::cout << "Size: " << list.length() << std::endl;
+    LinkedList<int> ll;
+
+    if (ll.search(56) == -1)
+    {
+        std::cout << "56 not found" << std::endl;
+    }
+    else
+    {
+        std::cout << "56 found" << std::endl;
+    }
     
+    ll.insertFront(56);
+    ll.insertBack(7);
+
+    std::cout << (ll.search(7) != -1 ? "7 found" : "7 not found") << std::endl;
+    std::cout << "Linked List: " << ll.display() << std::endl;
+
+    ll.insertBack(4);
+    ll.insertBack(8);
+    ll.insertBack(12);
+    ll.insertBack(99);
+
+    std::cout << "Linked List: " << ll.display() << std::endl;
+
+    ll.deleteAt(2);
+    std::cout << "Linked List: " << ll.display() << std::endl;
+
+    ll.deleteAt(2);
+    std::cout << "Linked List: " << ll.display() << std::endl;
+
     return 0;
 }

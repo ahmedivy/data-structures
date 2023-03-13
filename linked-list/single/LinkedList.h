@@ -14,7 +14,6 @@ class LinkedList
                 T data;
                 Node* next;
                 Node(T data) : data(data), next(nullptr) {}
-                
         };
 
         Node* head;
@@ -24,17 +23,120 @@ class LinkedList
     public:
         LinkedList() : size(0), head(nullptr), tail(nullptr) {}
         ~LinkedList();
+        void insertAt(int index, T data);
+        void deleteAt(int index);
+        int search(T data);
         void insertFront(T data);
         void insertBack(T data);
-        void popFront();
-        void popBack();
+        void deleteFront();
+        void deleteBack();
         int length();
         bool isEmpty();
         std::string display();
+        Node& getHeadPtr()
+        {
+            return head;
+        }
+        Node& getTailPtr()
+        {
+            return tail;
+        }
 
 };
 
 // Implementation of LinkedList Methods
+
+template <typename T>
+void LinkedList<T>::insertAt(int index, T data)
+{
+    if (index < 0 || index > size)
+    {
+        throw std::runtime_error("Index out of bounds!");
+    }
+
+    // Special case: insert at the front
+    if (index == 0)
+    {
+        insertFront(data);
+        return;
+    }
+
+    // Special case: insert at the end
+    if (index == size)
+    {
+        insertBack(data);
+        return;
+    }
+
+    Node* newNode = new Node(data);
+    Node* current = head;
+    int count = 0;
+    while (current != nullptr)
+    {
+        if (count == index - 1)
+        {
+            newNode->next = current->next;
+            current->next = newNode;
+            break;
+        }
+        current = current->next;
+        count++;
+    }
+    size++;
+}
+
+template <typename T>
+void LinkedList<T>::deleteAt(int index)
+{
+    if (index < 0 || index > size)
+    {
+        throw std::runtime_error("Index out of range.");
+    }
+
+    if (index == 0)
+    {
+        deleteFront();
+        return;
+    }
+
+    if (index == size - 1)
+    {
+        deleteBack();
+        return;
+    }
+    Node* current = head;
+    int count = 0;
+    while (current != nullptr)
+    {
+        if (count == index - 1)
+        {
+            Node* temp = current->next;
+            current->next = temp->next;
+            delete temp;
+            break;
+        }
+        current = current->next;
+        count++;
+    }
+}
+
+template <typename T>
+int LinkedList<T>::search(T data)
+{
+    Node* current = head;
+    int count = 0;
+    while (current != nullptr)
+    {
+        if (current->data == data)
+        {
+            return count;
+        }
+        current = current->next;
+        count++;
+    }
+    return -1;
+}
+
 
 template <typename T>
 LinkedList<T>::~LinkedList() 
@@ -109,7 +211,7 @@ std::string LinkedList<T>::display()
 }
 
 template <typename T>
-void LinkedList<T>::popFront()
+void LinkedList<T>::deleteFront()
 {
     if (head == nullptr)
     {
@@ -127,7 +229,7 @@ void LinkedList<T>::popFront()
 }
 
 template <typename T>
-void LinkedList<T>::popBack()
+void LinkedList<T>::deleteBack()
 {
     if (isEmpty())
     {
