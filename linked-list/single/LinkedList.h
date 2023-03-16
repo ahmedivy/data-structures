@@ -205,7 +205,7 @@ std::string LinkedList<T>::display()
     Node* current = head;
     while (current != nullptr) 
     {
-        result += std::to_string(current->data) + " ";
+        result += current->data + " ";
         current = current->next;
     }
     return result;
@@ -240,9 +240,11 @@ void LinkedList<T>::deleteBack()
     {
         delete head;
         head = tail = nullptr;
+        return;
     }
     Node *temp = head;
-    while (temp->next != tail) {
+    while (temp->next != tail) 
+    {
         temp = temp->next;
     }
     delete tail;

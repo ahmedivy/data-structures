@@ -31,7 +31,6 @@ class LinkedList
         int length();
         bool isEmpty();
         std::string display();
-
 };
 
 // Implementation of LinkedList Methods
@@ -112,17 +111,21 @@ std::string LinkedList<T>::display()
 template <typename T>
 void LinkedList<T>::popFront()
 {
-    if (head == nullptr)
+    if (isEmpty())
     {
         throw std::runtime_error("List is Empty!");
     }
-    Node *temp = head; // This is the node that is being deleted
-    head = head->next; // This is the new head
-    delete temp;
-    // If list becomes empty after deleting node
-    if (isEmpty())
+    else if (head == tail)
     {
-        tail = nullptr;
+        delete head;
+        head = tail = nullptr;
+    }
+    else
+    {
+        Node* temp = head;
+        head = head->next;
+        head->prev = nullptr;
+        delete temp;
     }
     size--;
 }
@@ -143,8 +146,8 @@ void LinkedList<T>::popBack()
     {
         Node* temp = tail;
         tail = tail->prev;
-        delete temp;
         tail->next = nullptr;
+        delete temp;
     }
     size--;
 }

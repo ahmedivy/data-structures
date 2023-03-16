@@ -22,6 +22,8 @@ int main()
     std::cout << "Linked List: " << list.display() << std::endl;
     list.popBack();
     std::cout << "Linked List: " << list.display() << std::endl;
+    list.popFront();
+    std::cout << "Linked List: " << list.display() << std::endl;
     std::cout << "Size: " << list.length() << std::endl;
     
     return 0;
