@@ -7,25 +7,14 @@
 using namespace std;
 
 // Function to check if a character is an operator
-bool is_operator(char c) {
+bool is_operator(char c)
+{
     return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
 }
 
-// Function to get the precedence of an operator
-int precedence(char c) {
-    if (c == '+' || c == '-') {
-        return 1;
-    } else if (c == '*' || c == '/') {
-        return 2;
-    } else if (c == '^') {
-        return 3;
-    } else {
-        return 0;
-    }
-}
-
 // Function to convert infix expression to postfix expression
-string infix_to_postfix(string infix) {
+string infix_to_postfix(string infix)
+{
     stack<char> operator_stack;
     queue<char> output_queue;
     unordered_map<char, int> precedence_map = {
@@ -33,22 +22,32 @@ string infix_to_postfix(string infix) {
         {'-', 1},
         {'*', 2},
         {'/', 2},
-        {'^', 3}
-    };
+        {'^', 3}};
 
-    for (char c : infix) {
-        if (isdigit(c)) {
+    for (char c : infix)
+    {
+        if (isdigit(c))
+        {
             output_queue.push(c);
-        } else if (is_operator(c)) {
-            while (!operator_stack.empty() && is_operator(operator_stack.top()) && precedence_map[operator_stack.top()] >= precedence_map[c]) {
+        }
+        else if (is_operator(c))
+        {
+            while (!operator_stack.empty() && is_operator(operator_stack.top()) 
+                    && precedence_map[operator_stack.top()] >= precedence_map[c])
+            {
                 output_queue.push(operator_stack.top());
                 operator_stack.pop();
             }
             operator_stack.push(c);
-        } else if (c == '(') {
+        }
+        else if (c == '(')
+        {
             operator_stack.push(c);
-        } else if (c == ')') {
-            while (!operator_stack.empty() && operator_stack.top() != '(') {
+        }
+        else if (c == ')')
+        {
+            while (!operator_stack.empty() && operator_stack.top() != '(')
+            {
                 output_queue.push(operator_stack.top());
                 operator_stack.pop();
             }
@@ -56,13 +55,15 @@ string infix_to_postfix(string infix) {
         }
     }
 
-    while (!operator_stack.empty()) {
+    while (!operator_stack.empty())
+    {
         output_queue.push(operator_stack.top());
         operator_stack.pop();
     }
 
     string postfix = "";
-    while (!output_queue.empty()) {
+    while (!output_queue.empty())
+    {
         postfix += output_queue.front();
         output_queue.pop();
     }
@@ -70,9 +71,10 @@ string infix_to_postfix(string infix) {
     return postfix;
 }
 
-int main() {
+int main()
+{
     string infix = "3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3";
     string postfix = infix_to_postfix(infix);
-    cout << postfix << endl;  // Output: 342*15-2^3^^/
+    cout << postfix << endl; // Output: 342*15-2^3^^/
     return 0;
 }
