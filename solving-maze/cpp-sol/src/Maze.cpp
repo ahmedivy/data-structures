@@ -55,7 +55,15 @@ Maze::~Maze()
 
 bool Maze::isOpen(Location location)
 {
-    return mazeArray.at(location.getY()).at(location.getX()) == OPEN;
+    try
+    {
+        return mazeArray.at(location.getY()).at(location.getX()) == OPEN;
+    }
+    catch(const std::exception& e)
+    {
+        return false;
+    }
+    
 }
 
 void Maze::markMoved(Location* location)
