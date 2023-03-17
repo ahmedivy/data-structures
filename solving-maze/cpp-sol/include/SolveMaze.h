@@ -14,11 +14,9 @@ class SolveMaze
     private:
         Maze* maze;
         Rat* rat;
-        std::stack<Location> pathStack;
-        bool solved;
+        std::stack<Location*> pathStack;
     public:
         SolveMaze(const char* mazeFile);
         void solve();
-        bool isSolved();
         void printMaze();
 };

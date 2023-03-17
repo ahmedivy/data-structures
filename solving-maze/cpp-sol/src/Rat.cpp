@@ -5,11 +5,14 @@
 #include "Location.h"
 #include "Rat.h"
 
-Rat::Rat(Maze* maze) : maze(maze), location(new Location(0, 1)) {}
+Rat::Rat(Maze* maze) : maze(maze)
+{
+    location = maze->getStartPoint();
+}
 
 Location* Rat::getLocation()
 {
-    return location;
+    return new Location(location->getX(), location->getY());
 }
 
 void Rat::setLocation(Location* location)
@@ -20,6 +23,8 @@ void Rat::setLocation(Location* location)
 bool Rat::canMove(int direction)
 {
     Location* adjacent = location->adjacent(direction);
+    if (adjacent->getX() < 0 || adjacent->getX() >= maze->getWidth())
+        return false;
     bool canMove = maze->isOpen(*adjacent);
     delete adjacent;
     return canMove;
@@ -27,12 +32,12 @@ bool Rat::canMove(int direction)
 
 void Rat::move(int direction)
 {
+
     location->move(direction);
-    maze->markMoved(*location);
+    maze->markMoved(location);
 }
 
 bool Rat::isOut()
 {
-    return location->getY() == 0;
+    return maze->getEndPoint()->equals(*location);
 }
-
