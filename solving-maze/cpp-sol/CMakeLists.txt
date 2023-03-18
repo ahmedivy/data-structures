@@ -11,7 +11,22 @@ add_executable(maze-solver
     main.cpp
 )
 
+add_executable(maze-solver-test
+    src/direction.cpp
+    src/location.cpp
+    src/rat.cpp
+    src/maze.cpp
+    src/solvemaze.cpp
+    test/testmaze.cpp
+    test/testlocation.cpp
+    test/test.cpp
+)
+
 target_include_directories(maze-solver
+    PRIVATE include
+)
+
+target_include_directories(maze-solver-test
     PRIVATE include
 )
 
