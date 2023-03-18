@@ -10,8 +10,8 @@ class Maze
     private:
         int rows;
         int cols;
-        Location* startPoint;
         Location* endPoint;
+        Location* startPoint;
         std::vector<std::vector<int>> mazeArray;
     public:
         const static int OPEN = 0, WALL = 1, TRIED = 2, PATH = 3;

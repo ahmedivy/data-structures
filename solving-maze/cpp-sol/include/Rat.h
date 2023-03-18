@@ -6,8 +6,8 @@
 class Rat
 {
     private:
-        Location* location;
         Maze* maze;
+        Location* location;
     public:
         Rat(Maze* maze);
         Location* getLocation();

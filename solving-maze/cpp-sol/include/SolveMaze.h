@@ -7,7 +7,6 @@
 #include "Rat.h"
 #include "Maze.h"
 #include "Location.h"
-#include "Direction.h"
 
 class SolveMaze
 {

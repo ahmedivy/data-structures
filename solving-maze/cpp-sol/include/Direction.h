@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Location.h"
-
 class Direction
 {
     private:
