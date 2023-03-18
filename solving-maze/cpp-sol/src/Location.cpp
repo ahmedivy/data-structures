@@ -57,7 +57,7 @@ Location* Location::adjacent(int direction)
 
 void Location::print()
 {
-    std::cout << "(" << x << ", " << y << ")" << std::endl;
+    std::cout << "Location: " <<  "(" << x << ", " << y << ")" << std::endl;
 }
 
 bool Location::equals(Location location)
