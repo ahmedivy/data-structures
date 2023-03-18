@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 
+#include "Rat.h"
 #include "Maze.h"
 #include "Location.h"
-#include "Rat.h"
 
 Rat::Rat(Maze* maze) : maze(maze)
 {
