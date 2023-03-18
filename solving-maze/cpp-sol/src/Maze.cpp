@@ -3,10 +3,9 @@
 #include <vector>
 #include <fstream>
 
+#include "rat.h"
 #include "maze.h"
 #include "location.h"
-#include "rat.h"
-#include "direction.h"
 
 Maze::Maze(std::string fileName)
 {
@@ -45,13 +44,13 @@ Maze::Maze(std::string fileName)
             {
                 endPoint = new Location(j, i);
             }
-            mazeArray[i][j] = (line[j] == '1' ? 1 : 0);
+            mazeArray[i][j] = ((line[j] == '1' || line[j] == '#') ? 1 : 0);
         }
     }
     infile.close();
 
     if (!startPoint)
-        startPoint = new Location(0,1);
+        startPoint = new Location(0, 1);
     if (!endPoint)
         endPoint = new Location(cols - 1, rows - 2);
 }
@@ -96,34 +95,32 @@ int Maze::getWidth()
 
 Location* Maze::getStartPoint()
 {
-    return startPoint;
+    return startPoint->clone();
 }
 
 Location* Maze::getEndPoint()
 {
-    return endPoint;
+    return endPoint->clone();
 }
 
 void Maze::print()
 {
+    char chars[] = {' ', '#', '?', 'o'};
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            switch(mazeArray[i][j])
+            if (j == getStartPoint()->getX() && i == getStartPoint()->getY())
             {
-                case OPEN:
-                    std::cout << " ";
-                    break;
-                case WALL:
-                    std::cout << "#";
-                    break;
-                case PATH:
-                    std::cout << "o";
-                    break;
-                case TRIED:
-                    std::cout << "?";
-                    break;
+                std::cout << 'A';
+            }
+            else if (j == getEndPoint()->getX() && i == getEndPoint()->getY())
+            {
+                std::cout << 'B';
+            }
+            else
+            {
+                std::cout << chars[mazeArray[i][j]];
             }
         }
         std::cout << std::endl;
