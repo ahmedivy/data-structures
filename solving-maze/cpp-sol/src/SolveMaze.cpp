@@ -5,7 +5,6 @@
 #include "Rat.h"
 #include "Maze.h"
 #include "Location.h"
-#include "Direction.h"
 #include "SolveMaze.h"
 
 
@@ -14,6 +13,12 @@ SolveMaze::SolveMaze(const char* mazeFile)
     maze = new Maze(mazeFile);
     rat = new Rat(maze);
     pathStack = std::stack<Location*>();
+}
+
+SolveMaze::~SolveMaze()
+{
+    delete maze;
+    delete rat;
 }
 
 void SolveMaze::printMaze()

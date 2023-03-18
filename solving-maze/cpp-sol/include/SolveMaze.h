@@ -17,6 +17,7 @@ class SolveMaze
         std::stack<Location*> pathStack;
     public:
         SolveMaze(const char* mazeFile);
+        ~SolveMaze();
         void solve();
         void printMaze();
 };
