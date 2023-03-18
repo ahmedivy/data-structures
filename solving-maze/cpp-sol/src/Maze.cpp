@@ -28,6 +28,9 @@ Maze::Maze(std::string fileName)
     // Read the maze data from the file
     mazeArray.resize(rows, std::vector<int>(cols));
 
+    startPoint = NULL;
+    endPoint = NULL;
+
     std::string line;
     for (int i = 0; i < rows; i++)
     {
@@ -46,6 +49,11 @@ Maze::Maze(std::string fileName)
         }
     }
     infile.close();
+
+    if (!startPoint)
+        startPoint = new Location(0,1);
+    if (!endPoint)
+        endPoint = new Location(cols - 1, rows - 2);
 }
 
 Maze::~Maze()
@@ -59,7 +67,7 @@ bool Maze::isOpen(Location location)
     {
         return mazeArray.at(location.getY()).at(location.getX()) == OPEN;
     }
-    catch(const std::exception& e)
+    catch(const std::out_of_range& e)
     {
         return false;
     }
