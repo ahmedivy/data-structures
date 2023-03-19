@@ -1,5 +1,4 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -31,10 +30,13 @@ class LinkedList
         void insertBack(T data);
         void deleteFront();
         void deleteBack();
+        void replace(int index, T data);
         int length();
         bool isEmpty();
         void reverse();
         void display();
+        void rotate(int k);
+        T secondToLast();
         Node* getHeadPtr();
         Node* getTailPtr();
         LinkedList<T>* copy();
@@ -49,6 +51,23 @@ LinkedList<T>::LinkedList(int size, Node* head, Node* tail)
     this->size = size;
     this->head = head;
     this->tail = tail;
+}
+
+template <typename T>
+void LinkedList<T>::replace(int index, T data)
+{
+    Node* current = head;
+    int count = 0;
+    while (current != nullptr)
+    {
+        if (count == index)
+        {
+            current->data = data;
+            break;
+        }
+        current = current->next;
+        count++;
+    }
 }
 
 template <typename T>
@@ -315,7 +334,7 @@ LinkedList<T>* LinkedList<T>::concat(LinkedList<T>* otherList)
 {
     LinkedList<T>* newList = copy();
 
-    typename LinkedList<T>::Node* current = otherList->getHeadPtr();
+    Node* current = otherList->getHeadPtr();
     while (current != nullptr)
     {
         newList->insertBack(current->data);
@@ -325,4 +344,48 @@ LinkedList<T>* LinkedList<T>::concat(LinkedList<T>* otherList)
     return newList;
 }
 
-#endif
+template <typename T>
+T LinkedList<T>::secondToLast()
+{
+    Node* current = head;
+    int count = 0;
+    while (current != nullptr)
+    {
+        if (count == size - 2)
+        {
+            return current->data;
+        }
+        current = current->next;
+        count++;
+    }
+    throw std::runtime_error("List is too small!");
+}
+
+template <typename T>
+void LinkedList<T>::rotate(int k)
+{
+    if (k < 0 || k > size)
+    {
+        throw std::runtime_error("Invalid k value!");
+    }
+    if (k == 0)
+    {
+        return;
+    }
+    Node* current = head;
+    int count = 0;
+    while (current != nullptr)
+    {
+        if (count == k - 1)
+        {
+            tail->next = head;
+            head = current->next;
+            current->next = nullptr;
+            tail = current;
+            break;
+        }
+        current = current->next;
+        count++;
+    }
+}
+
