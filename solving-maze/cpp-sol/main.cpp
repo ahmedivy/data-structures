@@ -14,7 +14,8 @@ int main(int argc, char* argv[])
     SolveMaze* solver = new SolveMaze(argv[1]);
 
     // Print the maze before solving it
-    std::cout << "Maze before solving: " << std::endl << std::endl;
+    std::cout << "Maze before solving: " 
+        << std::endl << std::endl;
     solver->printMaze();
     std::cout << std::endl;
 
@@ -22,7 +23,8 @@ int main(int argc, char* argv[])
     solver->solve();
     
     // Print the maze after solving it
-    std::cout << "Maze after solving: " << std::endl << std::endl;
+    std::cout << "Maze after solving: " 
+        << std::endl << std::endl;
     solver->printMaze();
     std::cout << std::endl;
 
