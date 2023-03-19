@@ -12,27 +12,34 @@ int main()
     ll.insertBack(7);
 
     std::cout << (ll.search(7) == -1 ? "7 not found" : "7 found") << std::endl;
-    std::cout << "Linked List: " << ll.display() << std::endl;
+    ll.display();
 
     ll.insertBack(4);
     ll.insertBack(8);
     ll.insertBack(12);
     ll.insertBack(99);
 
-    std::cout << "Linked List: " << ll.display() << std::endl;
+    ll.display();
 
     ll.deleteAt(2);
-    std::cout << "Linked List: " << ll.display() << std::endl;
+    ll.display();
 
     ll.deleteAt(2);
-    std::cout << "Linked List: " << ll.display() << std::endl;
+    ll.display();
 
     ll.insertAt(2, 100);
     ll.insertBack(200);
-    std::cout << "Linked List: " << ll.display() << std::endl;
+    ll.display();
 
     ll.reverse();
-    std::cout << "Linked List: " << ll.display() << std::endl;
+    ll.display();
+
+    LinkedList<int>* ll2 = ll.copy();
+    ll2->display();
+
+    ll.deleteAt(0);
+    ll.display();
+    ll2->display();
 
     return 0;
 }
