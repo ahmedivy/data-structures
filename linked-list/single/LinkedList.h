@@ -34,7 +34,7 @@ class LinkedList
         int length();
         bool isEmpty();
         void reverse();
-        std::string display();
+        void display();
         Node* getHeadPtr();
         Node* getTailPtr();
         LinkedList<T>* copy();
@@ -199,20 +199,20 @@ int LinkedList<T>::length()
 }
 
 template <typename T>
-std::string LinkedList<T>::display()
+void LinkedList<T>::display()
 {
     if (isEmpty())
     {
-        return "Currently Empty!";
+        std::cout << "Currently Empty!";
+        return;
     }
-    std::string result = "";
     Node* current = head;
     while (current != nullptr) 
     {
-        result += current->data + " ";
+        std::cout << current->data << " ";
         current = current->next;
     }
-    return result;
+    std::cout << std::endl;
 }
 
 template <typename T>
