@@ -307,6 +307,6 @@ LinkedList<T>* LinkedList<T>::copy()
         }
         current = current->next;
     }
-    return new LinkedList<T>(newHead, newTail, size);
+    return new LinkedList<T>(size, newHead, newTail);
 }
 #endif
