@@ -23,6 +23,7 @@ class LinkedList
     public:
         LinkedList() : size(0), head(nullptr), tail(nullptr) {}
         ~LinkedList();
+        LinkedList(int size,Node* head,Node* tail);
         void insertAt(int index, T data);
         void deleteAt(int index);
         int search(T data);
@@ -34,18 +35,21 @@ class LinkedList
         bool isEmpty();
         void reverse();
         std::string display();
-        Node& getHeadPtr()
-        {
-            return head;
-        }
-        Node& getTailPtr()
-        {
-            return tail;
-        }
+        Node* getHeadPtr();
+        Node* getTailPtr();
+        LinkedList<T>* copy();
 
 };
 
 // Implementation of LinkedList Methods
+
+template <typename T>
+LinkedList<T>::LinkedList(int size, Node* head, Node* tail)
+{
+    this->size = size;
+    this->head = head;
+    this->tail = tail;
+}
 
 template <typename T>
 void LinkedList<T>::insertAt(int index, T data)
@@ -271,4 +275,38 @@ void LinkedList<T>::reverse()
     head = prev;
 }
 
+template <typename T>
+typename LinkedList<T>::Node* LinkedList<T>::getHeadPtr()
+{
+    return head;
+}
+
+template <typename T>
+typename LinkedList<T>::Node* LinkedList<T>::getTailPtr()
+{
+    return tail;
+}
+
+template <typename T>
+LinkedList<T>* LinkedList<T>::copy()
+{
+    Node* current = head;
+    Node* newHead = nullptr;
+    Node* newTail = nullptr;
+    while (current != nullptr)
+    {
+        Node* newNode = new Node(current->data);
+        if (newHead == nullptr)
+        {
+            newHead = newTail = newNode;
+        }
+        else
+        {
+            newTail->next = newNode;
+            newTail = newNode;
+        }
+        current = current->next;
+    }
+    return new LinkedList<T>(newHead, newTail, size);
+}
 #endif
