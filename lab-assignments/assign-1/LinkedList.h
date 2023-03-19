@@ -38,7 +38,7 @@ class LinkedList
         Node* getHeadPtr();
         Node* getTailPtr();
         LinkedList<T>* copy();
-
+        LinkedList<T>* concat(LinkedList<T>* otherList);
 };
 
 // Implementation of LinkedList Methods
@@ -309,4 +309,20 @@ LinkedList<T>* LinkedList<T>::copy()
     }
     return new LinkedList<T>(size, newHead, newTail);
 }
+
+template <typename T>
+LinkedList<T>* LinkedList<T>::concat(LinkedList<T>* otherList)
+{
+    LinkedList<T>* newList = copy();
+
+    typename LinkedList<T>::Node* current = otherList->getHeadPtr();
+    while (current != nullptr)
+    {
+        newList->insertBack(current->data);
+        current = current->next;
+    }
+
+    return newList;
+}
+
 #endif
