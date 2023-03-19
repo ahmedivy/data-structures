@@ -4,6 +4,6 @@ add_executable(assign-1
     main.cpp
 )
 
-target_include_directories(assign-1
+target_include_directories(maze-solver
     PRIVATE include
 )
