@@ -2,68 +2,68 @@
 #include <string>
 
 #include "LinkedList.h"
+#include "CircularLinkedList.h"
 
-template <typename T>
-using Node = typename LinkedList<T>::Node;
-
-template <typename T>
-Node<T>* copyList(Node<T>* list);
+using namespace std;
 
 int main()
 {
+    // Copy Function Test
     LinkedList<int>* list = new LinkedList<int>();
-    list->insertBack(2);
+
+    cout << "Inserts 4 in list" << endl;
     list->insertBack(4);
+    cout << "Inserts 6 in list" << endl;
+    list->insertBack(6);
+    cout << "Inserts 8 in list" << endl;
+    list->insertBack(8);
+    cout << "List: " << endl;
+    list->display();
 
-    LinkedList<int>* copyList = list->copy();
+    LinkedList<int>* copy = list->copy();
+    cout << "Copied List: " << endl;
+    copy->display();
 
-    LinkedList<int>* listTwo = new LinkedList<int>();
-    listTwo->insertBack(6);
-    listTwo->insertBack(8);
+    cout << "Delete last element from copied list" << endl;
+    copy->deleteBack();
 
-    LinkedList<int>* concatented = list->concat(listTwo);
-    concatented->display();
-
-    delete copyList;
-    delete list;
-    delete listTwo;
-
-    concatented->display();
-    concatented->replace(2, 5);
-    concatented->display();
-    std::cout << concatented->secondToLast() << std::endl;
-    concatented->rotate(2);
-    concatented->display();
+    cout << "List: " << endl;
+    list->display();
+    cout << "Copied List: " << endl;
+    copy->display();
 
 
-    delete concatented;
-    return 0;
+    // Concat Function Test
+    LinkedList<int>* concatenatedList = list->concat(copy);
+    cout << "Concatenated List: " << endl;
+    concatenatedList->display();
+
+    // Replace Function Test
+    cout << "Replace first index value with 10" << endl;
+    concatenatedList->replace(1, 10);
+    cout << "Concatenated List: " << endl;
+    concatenatedList->display();
+
+    // Second to Last Function Test
+    cout << "Second to last element in list: " << concatenatedList->secondToLast() << endl;
+
+    // Rotate Function Test
+    cout << "Rotate list by 2" << endl;
+    concatenatedList->rotate(2);
+    cout << "Concatenated List: " << endl;
+    concatenatedList->display();
+
+    // Size Function Test
+    CircularLinkedList<int>* circularList = new CircularLinkedList<int>();
+    cout << "Size of circular list: " << circularList->getSize() << endl;
+    cout << "Inserts 4 in circular list" << endl;
+    circularList->insertFront(4);
+    cout << "Inserts 6 in circular list" << endl;
+    circularList->insertFront(6);
+    cout << "Inserts 8 in circular list" << endl;
+    circularList->insertFront(8);
+    cout << "Size of circular list: " << circularList->getSize() << endl;
+    cout << "Circular List: " << endl;
+    circularList->display();
 }
 
-template <typename T>
-Node<T>* copyList(const Node<T>* list)
-{
-    if (list == nullptr)
-    {
-        return nullptr;
-    }
-
-    Node<T>* current = list;
-    Node<T>* newHead = nullptr;
-    Node<T>* newTail = nullptr;
-
-    while (current != nullptr)
-    {
-        Node<T>* newNode = new Node<T>(current->data);
-        newNode->next = newTail;
-        newTail = newNode;
-        current = current->next;
-
-        if (newHead == nullptr)
-        {
-            newHead = newNode;
-        }
-    }
-
-    return newHead;
-}

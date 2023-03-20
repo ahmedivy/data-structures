@@ -15,7 +15,7 @@ class CircularLinkedList
                 Node(T data) : data(data), next(nullptr) {}
         };
 
-        Node* head;
+        Node* last;
         int size;
 
     public:
@@ -31,20 +31,15 @@ class CircularLinkedList
 };
 
 template <typename T>
-CircularLinkedList<T>::CircularLinkedList() : head(nullptr), size(0) {}
+CircularLinkedList<T>::CircularLinkedList() : last(nullptr), size(0) {}
 
 template <typename T>
 CircularLinkedList<T>::~CircularLinkedList()
 {
-    Node* current = head;
-    do
+    while (!isEmpty())
     {
-        Node* next = current->next;
-        delete current;
-        current = next;
+        removeFront();
     }
-    while (current != head);
-    delete current;
 }
 
 template <typename T>
@@ -53,13 +48,13 @@ void CircularLinkedList<T>::insertFront(T data)
     Node* newNode = new Node(data);
     if (isEmpty())
     {
-        head = newNode;
-        head->next = head;
+        last = newNode;
+        last->next = last;
     }
     else
     {
-        newNode->next = head;
-        head = newNode;
+        newNode->next = last->next;
+        last->next = newNode;
     }
     size++;
 }
@@ -67,18 +62,8 @@ void CircularLinkedList<T>::insertFront(T data)
 template <typename T>
 void CircularLinkedList<T>::insertBack(T data)
 {
-    Node* newNode = new Node(data);
-    if (isEmpty())
-    {
-        head = newNode;
-        head->next = head;
-    }
-    else
-    {
-        newNode->next = head;
-        head = newNode;
-    }
-    size++;
+    insertFront(data);
+    last = last->next;
 }
 
 template <typename T>
@@ -86,23 +71,84 @@ void CircularLinkedList<T>::removeFront()
 {
     if (isEmpty())
     {
+        std::cout << "List is empty" << std::endl;
         return;
     }
-    else if (head->next == head)
+    Node* temp = last->next;
+    if (last->next == last)
     {
-        delete head;
-        head = nullptr;
+        last = nullptr;
     }
     else
     {
-        Node* current = head;
-        while (current->next != head)
-        {
-            current = current->next;
-        }
-        current->next = head->next;
-        delete head;
-        head = current->next;
+        last->next = temp->next;
     }
+    delete temp;
     size--;
+}
+
+template <typename T>
+void CircularLinkedList<T>::removeBack()
+{
+    if (isEmpty())
+    {
+        std::cout << "List is empty" << std::endl;
+        return;
+    }
+    Node* temp = last->next;
+    if (last->next == last)
+    {
+        last = nullptr;
+    }
+    else
+    {
+        while (temp->next != last)
+        {
+            temp = temp->next;
+        }
+        temp->next = last->next;
+        last = temp;
+    }
+    delete temp;
+    size--;
+}
+
+template <typename T>
+void CircularLinkedList<T>::display()
+{
+    if (isEmpty())
+    {
+        std::cout << "List is empty" << std::endl;
+        return;
+    }
+    Node* temp = last->next;
+    while (temp != last)
+    {
+        std::cout << temp->data << " ";
+        temp = temp->next;
+    }
+    std::cout << temp->data << std::endl;
+}
+
+template <typename T>
+int CircularLinkedList<T>::getSize()
+{
+    int count = 0;
+    if (isEmpty())
+    {
+        return count;
+    }
+    Node* current = last->next;
+    while (current != last)
+    {
+        current = current->next;
+        count++;
+    }
+    return ++count;
+}
+
+template <typename T>
+bool CircularLinkedList<T>::isEmpty()
+{
+    return last == nullptr;
 }
