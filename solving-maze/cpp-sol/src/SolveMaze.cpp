@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <windows.h>
 
 #include "Rat.h"
 #include "Maze.h"
@@ -28,8 +29,8 @@ void SolveMaze::printMaze()
 
 void SolveMaze::solve()
 {
-    bool moved = false;
     maze->markMoved(rat->getLocation());
+    bool moved = false;
     while(!rat->isOut())
     {
         moved = false;
@@ -54,6 +55,10 @@ void SolveMaze::solve()
             rat->setLocation(pathStack.top());
             pathStack.pop();
         }
+        maze->print();
+        Sleep(100);
+        system("cls");
     }
+    
 }
 

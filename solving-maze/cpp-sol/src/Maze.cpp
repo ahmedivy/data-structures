@@ -105,7 +105,7 @@ Location* Maze::getEndPoint()
 
 void Maze::print()
 {
-    char chars[] = {' ', '#', '?', 'o'};
+    std::string chars[] = {" ", "\u01F759" , "?", "o"};
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
@@ -120,7 +120,7 @@ void Maze::print()
             }
             else
             {
-                std::cout << chars[mazeArray[i][j]];
+                std::cout << chars[mazeArray[i][j]][0];
             }
         }
         std::cout << std::endl;
