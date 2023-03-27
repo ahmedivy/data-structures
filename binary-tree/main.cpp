@@ -23,10 +23,10 @@ int main()
     cout << "PreOrder: ";
     tree.preOrder(tree.getRoot());
     cout << endl;
-    cout << "PreOrder: ";
+    cout << "PostOrder: ";
     tree.postOrder(tree.getRoot());
     cout << endl;
-    cout << "PreOrder: ";
+    cout << "InOrder: ";
     tree.inOrder(tree.getRoot());
     cout << endl;
 
