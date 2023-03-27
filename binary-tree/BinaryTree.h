@@ -8,7 +8,6 @@
 template <typename T>
 class BinaryTree 
 {
-
     public:
         class Node
         {
