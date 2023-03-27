@@ -22,13 +22,10 @@ int main()
     tree.dfs_iterative();
     cout << "PreOrder: ";
     tree.preOrder(tree.getRoot());
-    cout << endl;
     cout << "PostOrder: ";
     tree.postOrder(tree.getRoot());
-    cout << endl;
     cout << "InOrder: ";
     tree.inOrder(tree.getRoot());
-    cout << endl;
 
     return 0;
 }

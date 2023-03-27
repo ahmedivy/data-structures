@@ -8,7 +8,7 @@
 template <typename T>
 class BinaryTree 
 {
-    public:
+    private:
         class Node
         {
             public:
@@ -17,6 +17,8 @@ class BinaryTree
                 Node* right;
                 Node(T data) : data(data), left(nullptr), right(nullptr) {}
         };
+        Node* root;
+    public:
         BinaryTree();
         ~BinaryTree();
         void insert(T data);
@@ -30,8 +32,6 @@ class BinaryTree
         void postOrder(Node* node);
         void inOrder(Node* node);
     
-    private:
-        Node* root;
 };
 
 
@@ -163,6 +163,10 @@ void BinaryTree<T>::preOrder(Node* node)
         preOrder(node->left);
         preOrder(node->right);
     }
+    if (node == root)
+    {
+        std::cout << std::endl;
+    }
 }
 
 template <typename T>
@@ -174,6 +178,10 @@ void BinaryTree<T>::postOrder(Node* node)
         preOrder(node->right);
         std::cout << node->data << " ";
     }
+    if (node == root)
+    {
+        std::cout << std::endl;
+    }
 }
 
 template <typename T>
@@ -184,5 +192,9 @@ void BinaryTree<T>::inOrder(Node* node)
         preOrder(node->left);
         std::cout << node->data << " ";
         preOrder(node->right);
+    }
+    if (node == root)
+    {
+        std::cout << std::endl;
     }
 }
