@@ -31,7 +31,6 @@ class BinaryTree
         void preOrder(Node* node);
         void postOrder(Node* node);
         void inOrder(Node* node);
-    
 };
 
 
@@ -174,8 +173,8 @@ void BinaryTree<T>::postOrder(Node* node)
 {
     if (node != nullptr)
     {
-        preOrder(node->left);
-        preOrder(node->right);
+        postOrder(node->left);
+        postOrder(node->right);
         std::cout << node->data << " ";
     }
     if (node == root)
@@ -189,9 +188,9 @@ void BinaryTree<T>::inOrder(Node* node)
 {
     if (node != nullptr)
     {
-        preOrder(node->left);
+        inOrder(node->left);
         std::cout << node->data << " ";
-        preOrder(node->right);
+        inOrder(node->right);
     }
     if (node == root)
     {
