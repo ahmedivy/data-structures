@@ -55,9 +55,6 @@ void SolveMaze::solve()
             rat->setLocation(pathStack.top());
             pathStack.pop();
         }
-        maze->print();
-        Sleep(100);
-        system("cls");
     }
     
 }
