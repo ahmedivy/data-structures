@@ -16,6 +16,11 @@ class BinaryTree
                 Node* left;
                 Node* right;
                 Node(T data) : data(data), left(nullptr), right(nullptr) {}
+                ~Node()
+                {
+                    delete left;
+                    delete right;
+                }
         };
         Node* root;
     public:
