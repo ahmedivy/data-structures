@@ -23,6 +23,7 @@ class BinaryTree
                 }
         };
         Node* root;
+        Node* _find(Node* node);
     public:
         BinaryTree();
         ~BinaryTree();
@@ -86,6 +87,12 @@ template <typename T>
 void BinaryTree<T>::remove(T data)
 {
     
+}
+
+template <typename T>
+Node* BinaryTree<T>::_find(Node* node)
+{
+
 }
 
 template <typename T>
