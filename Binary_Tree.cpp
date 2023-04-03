@@ -15,8 +15,6 @@ class Nodebst
     }
 
 };
-
-
 class BST
 {
     public:
@@ -39,7 +37,6 @@ class BST
 
         }
     }
-
     bool search(int val)
     {
         Nodebst* temp = root ;
@@ -273,15 +270,9 @@ class BST
                 break ;
             }
         }
-        cout<<endl;
-
-        
+        cout<<endl;        
     }
-
-
 };
-
-
 
 int main()
 {
@@ -294,9 +285,7 @@ int main()
     bst.Insert(5);
     bst.Insert(1);
     bst.Insert(50);
-
-
-    // int num ;
+  // int num ;
     // cin>>num ;
     // if(bst.search(num) == true)
     // {
@@ -318,10 +307,7 @@ int main()
         cout<<bst.bara()<<endl;
         //height
         cout<<bst.height(bst.root)<<endl;
-
-
     // Display 
     //bst.Display();
-
     return 0 ;
 }
