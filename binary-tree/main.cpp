@@ -37,7 +37,7 @@ void printMenu(BST<T>& tree)
     };
 
     int option = 0;
-    while (option != options.size() - 1)
+    while (option != options.size())
     {
         cout << "== Binary Search Tree ==" << endl;
         for (int i = 0; i < options.size(); i++)

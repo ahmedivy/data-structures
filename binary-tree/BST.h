@@ -98,6 +98,12 @@ typename BST<T>::Node* BST<T>::insert(T data)
 template <typename T>
 typename BST<T>::Node* BST<T>::remove(T data)
 {
+    if (root->data == data && !hasLeft(root) && !hasRight(root))
+    {
+        delete root;
+        root = nullptr;
+        return nullptr;
+    }
     return _remove(root, data);
 }
 
