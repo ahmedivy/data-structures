@@ -64,5 +64,8 @@
     "string_view": "cpp",
     "sstream": "cpp"
   },
-  "cmake.sourceDirectory": "${workspaceFolder}/solving-maze/cpp-sol"
+  "cmake.sourceDirectory": [
+    "${workspaceFolder}/case-studies/capital-gains",
+    "${workspaceFolder}/case-studies/solving-maze/cpp-sol"
+  ]
 }
