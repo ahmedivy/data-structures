@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "LinkedQueue.h"
+#include "BinaryTree.h"
 
 int main()
 {
@@ -15,5 +16,19 @@ int main()
     printf("Removed: %d\n", queue.removeSecond());
     queue.print(); // 5 3 2 1
 
+    Node* root = create_sample_tree();
+
+    // Finding parent of a node
+    printf("Parent of 8: %d\n" , find_parent(root, 8)->data);
+
+    // Finding level/depth of a node
+    printf("Depth of 6: %d\n", find_level(root, 6));
+
+    // Finding height of tree
+    printf("Height of tree: %d\n", find_height(root));
+
+    // Counting Nodes
+    printf("Total Nodes: %d\n", count_nodes(root));
+    
     return 0;
 }
