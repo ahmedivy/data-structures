@@ -1,34 +1,15 @@
 #include <iostream>
 #include <vector>
 
-struct Entity
-{
-    int x, y;
+int main() {
+    // Initialize a vector of integers with some values
+    std::vector<int> nums = {1, 2, 3, 4, 5};
 
-    int* getArray()
-    {
-        return &x;
-    }
-};
+    // Use the auto keyword to declare a variable and infer its type from the initializer
+    auto it = nums.begin();
 
-inline void printHello()
-{
-    std::cout << "Hello" << std::endl;
-}
+    // Use the variable to access the first element of the vector
+    std::cout << "First element of vector: " << *it << std::endl;
 
-int main()
-{
-    int a = 50;
-    double b = *(double *)&a;
-
-    std::cout << b << std::endl;
-
-    Entity ent = {23, 67};
-    int *arr = ent.getArray();
-    std::cout << arr[0] << "," << arr[1] << std::endl;
-    arr[1] = 68;
-    std::cout << ent.x << "," << ent.y << std::endl;
-
-    printHello();
     return 0;
 }
