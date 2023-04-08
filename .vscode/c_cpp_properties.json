@@ -5,7 +5,8 @@
       "includePath": [
         "${workspaceFolder}/**",
         "${workspaceFolder}/case-studies/solving-maze/cpp-sol/include",
-        "${workspaceFolder}/case-studies/capital-gains/include"
+        "${workspaceFolder}/case-studies/capital-gains/include",
+        "${workspaceFolder}/assignments/assign-2/include"
       ],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
       "windowsSdkVersion": "10.0.22000.0",

@@ -66,6 +66,7 @@
   },
   "cmake.sourceDirectory": [
     "${workspaceFolder}/case-studies/capital-gains",
-    "${workspaceFolder}/case-studies/solving-maze/cpp-sol"
+    "${workspaceFolder}/case-studies/solving-maze/cpp-sol",
+    "${workspaceFolder}/assignments/assign-2"
   ]
 }
