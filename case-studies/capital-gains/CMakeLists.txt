@@ -4,6 +4,7 @@ project(capital-gains)
 
 add_executable(capital-gains
     src/date.cpp
+    src/transaction.cpp
     main.cpp
 )
 
