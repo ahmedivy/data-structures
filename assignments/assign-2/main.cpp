@@ -29,6 +29,18 @@ int main()
 
     // Counting Nodes
     printf("Total Nodes: %d\n", count_nodes(root));
+
+    // Is BST
+    printf(is_bst(root) ? "Tree is BST." : "Not a BST");
+
+    // Level Order Insert
+    Node* root2 = new Node(8);
+    level_order_insert(root2, 2);
+    level_order_insert(root2, 3);
+    level_order_insert(root2, 4);
+    level_order_insert(root2, 6);
+    level_order_insert(root2, 9);
+
     
     return 0;
 }

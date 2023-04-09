@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <queue>
 
 typedef struct Node
 {
@@ -23,7 +24,7 @@ Node *create_sample_tree()
     Node *root = new Node(5);
     root->left = new Node(3);
     root->right = new Node(8);
-    root->left->left = new Node(1);
+    root->left->left = new Node(12);
     root->left->right = new Node(4);
     root->right->left = new Node(6);
     root->right->right = new Node(12);
@@ -73,7 +74,11 @@ int find_height(Node *root)
 
 bool is_bst(Node* root)
 {
-   return true;  
+    if (root == nullptr || !root->left || !root->right)
+        return true;
+    bool right = is_bst(root->right);
+    bool left = is_bst(root->left);
+    return root->left->data < root->right->data && right && left;
 }
 
 bool is_same_level(Node* root, int one, int two)
@@ -90,3 +95,35 @@ int count_nodes(Node* root)
     return 1 + left_c + right_c;
 }
 
+void level_order_insert(Node* root, int data)
+{
+    if (root != nullptr)
+    {
+        std::queue<Node*> q;
+        Node* temp = root;
+        q.push(temp);
+        while (!q.empty())
+        {
+            temp = q.front();
+            q.pop();
+            if (temp->left == nullptr)
+            {
+                temp->left = new Node(data);
+                return;
+            }
+            if (temp->right == nullptr)
+            {
+                temp->right = new Node(data);
+                return;
+            }
+            if (temp->left != nullptr)
+            {
+                q.push(temp->left);
+            }
+            if (temp->right != nullptr)
+            {
+                q.push(temp->right);
+            }
+        }
+    }
+}
