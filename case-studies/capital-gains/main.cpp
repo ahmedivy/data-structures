@@ -7,9 +7,9 @@
 #include "transaction.h"
 #include "dynamic_queue.h"
 
-using Queue = LinkedQueue<Transaction*>;
-int find_capital_gains(Queue & bought, Queue &sold);
-void loadData(std::string filename, LinkedQueue<Transaction*>& q);
+using Queue = LinkedQueue<Transaction *>;
+int find_capital_gains(Queue &bought, Queue &sold);
+void loadData(std::string filename, LinkedQueue<Transaction *> &q);
 
 int main()
 {
@@ -28,8 +28,8 @@ int main()
 int find_capital_gains(Queue &bought, Queue &sold)
 {
     int gains = 0;
-    Transaction* buy;
-    Transaction* sell;
+    Transaction *buy;
+    Transaction *sell;
     while (!bought.isEmpty() && !sold.isEmpty())
     {
         buy = bought.peek();
@@ -53,10 +53,12 @@ int find_capital_gains(Queue &bought, Queue &sold)
     return gains;
 }
 
-void loadData(std::string filename, LinkedQueue<Transaction*>& q) {
+void loadData(std::string filename, LinkedQueue<Transaction *> &q)
+{
     std::ifstream file(filename);
 
-    if (!file) {
+    if (!file)
+    {
         std::cout << "Error opening file." << std::endl;
         return;
     }
@@ -65,7 +67,8 @@ void loadData(std::string filename, LinkedQueue<Transaction*>& q) {
     file >> numEntries;
     file.ignore(); // Ignore newline character
 
-    for (int i = 0; i < numEntries; i++) {
+    for (int i = 0; i < numEntries; i++)
+    {
         std::string line;
         getline(file, line);
         std::stringstream ss(line);
@@ -82,7 +85,7 @@ void loadData(std::string filename, LinkedQueue<Transaction*>& q) {
         int month = stoi(dateString.substr(4, 2));
         int day = stoi(dateString.substr(6, 2));
 
-        Transaction* t = new Transaction(quantity, price, Date(day, month, year));
+        Transaction *t = new Transaction(quantity, price, Date(day, month, year));
         q.enqueue(t);
     }
 
