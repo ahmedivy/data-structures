@@ -16,31 +16,30 @@ int main()
     printf("Removed: %d\n", queue.removeSecond());
     queue.print(); // 5 3 2 1
 
-    Node* root = create_sample_tree();
-
-    // Finding parent of a node
-    printf("Parent of 8: %d\n" , find_parent(root, 8)->data);
-
-    // Finding level/depth of a node
-    printf("Depth of 6: %d\n", find_level(root, 6));
-
-    // Finding height of tree
-    printf("Height of tree: %d\n", find_height(root));
-
-    // Counting Nodes
-    printf("Total Nodes: %d\n", count_nodes(root));
+    // Level Order Insert
+    Node* root = new Node(1);
+    for (int i = 2; i < 9; i++)
+        level_order_insert(root, i);
 
     // Is BST
-    printf(is_bst(root) ? "Tree is BST." : "Not a BST");
+    printf(is_bst(root) ? "Tree is BST.\n" : "Not a BST.\n");
 
-    // Level Order Insert
-    Node* root2 = new Node(8);
-    level_order_insert(root2, 2);
-    level_order_insert(root2, 3);
-    level_order_insert(root2, 4);
-    level_order_insert(root2, 6);
-    level_order_insert(root2, 9);
+    printTree(root);
+//         1
+//       2  3
+//     4 5 6 7
+//    8 
 
-    
+    // // Finding parent of a node
+    // printf("Parent of 8: %d\n" , find_parent(root, 8)->data);
+
+    // // Finding level/depth of a node
+    // printf("Depth of 6: %d\n", find_level(root, 6));
+
+    // // Finding height of tree
+    // printf("Height of tree: %d\n", find_height(root));
+
+
+  
     return 0;
 }

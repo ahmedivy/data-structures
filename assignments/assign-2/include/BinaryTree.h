@@ -3,47 +3,30 @@
 #include <iostream>
 #include <queue>
 
-typedef struct Node
+class Node
 {
+public:
     int data;
     Node *left;
     Node *right;
     Node() = default;
     Node(int data) : data(data), left(nullptr), right(nullptr) {}
-} Node;
-
-Node *create_sample_tree()
-{
-    // Return a tree
-    //       5
-    //      / \
-    //     3   8
-    //    / \ / \
-    //   1  4 6  12
-
-    Node *root = new Node(5);
-    root->left = new Node(3);
-    root->right = new Node(8);
-    root->left->left = new Node(12);
-    root->left->right = new Node(4);
-    root->right->left = new Node(6);
-    root->right->right = new Node(12);
-    return root;
-}
+};
 
 Node *find_parent(Node *root, int key)
 {
     if (root == nullptr)
         return nullptr;
+    Node *node = nullptr;
     if (root->left && root->left->data == key)
         return root;
     if (root->right && root->right->data == key)
         return root;
     if (key < root->data)
-        find_parent(root->left, key);
-    if (key > root->data)
-        find_parent(root->right, key);
-    return nullptr;
+        node = find_parent(root->left, key);
+    else if (key > root->data)
+        node = find_parent(root->right, key);
+    return node;
 }
 
 int find_level(Node *root, int key, int level = 0)
@@ -72,7 +55,7 @@ int find_height(Node *root)
     return 1 + (left_h > right_h ? left_h : right_h);
 }
 
-bool is_bst(Node* root)
+bool is_bst(Node *root)
 {
     if (root == nullptr || !root->left || !root->right)
         return true;
@@ -81,12 +64,12 @@ bool is_bst(Node* root)
     return root->left->data < root->right->data && right && left;
 }
 
-bool is_same_level(Node* root, int one, int two)
+bool is_same_level(Node *root, int one, int two)
 {
     return find_level(root, one) == find_level(root, two);
 }
 
-int count_nodes(Node* root)
+int count_nodes(Node *root)
 {
     if (root == nullptr)
         return 0;
@@ -95,12 +78,17 @@ int count_nodes(Node* root)
     return 1 + left_c + right_c;
 }
 
-void level_order_insert(Node* root, int data)
+void level_order_insert(Node *root, int data)
 {
+    if (root == nullptr)
+    {
+        root = new Node(data);
+        return;
+    }
     if (root != nullptr)
     {
-        std::queue<Node*> q;
-        Node* temp = root;
+        std::queue<Node *> q;
+        Node *temp = root;
         q.push(temp);
         while (!q.empty())
         {
@@ -125,5 +113,17 @@ void level_order_insert(Node* root, int data)
                 q.push(temp->right);
             }
         }
+    }
+}
+
+void printTree(Node *node, int level = 0) 
+{
+    if (node != NULL) 
+    {
+        printTree(node->left, level + 1);
+        for (int i = 0; i < 4 * level; i++)
+            std::cout << " ";
+        std::cout << "-> " << node->data << std::endl;
+        printTree(node->right, level + 1);
     }
 }

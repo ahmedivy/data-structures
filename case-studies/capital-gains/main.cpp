@@ -1,25 +1,25 @@
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 #include "date.h"
 #include "transaction.h"
 #include "dynamic_queue.h"
 
 using Queue = LinkedQueue<Transaction*>;
-int find_capital_gain(Queue &, Queue &);
+int find_capital_gains(Queue & bought, Queue &sold);
+void loadData(std::string filename, LinkedQueue<Transaction*>& q);
 
 int main()
 {
     Queue bought;
     Queue sold;
 
-    bought.enqueue(new Transaction(100, 25, Date(15, 3, 2022)));
-    bought.enqueue(new Transaction(200, 20, Date(20, 8, 2022)));
+    loadData("data/bought.txt", bought);
+    loadData("data/sold.txt", sold);
 
-    sold.enqueue(new Transaction(60, 30, Date(10, 6, 2022)));
-    sold.enqueue(new Transaction(240, 50, Date(25, 10, 2022)));
-
-    int gains = find_capital_gain(bought, sold);
+    int gains = find_capital_gains(bought, sold);
     std::cout << "Total Gains: " << gains << std::endl;
 
     return 0;
@@ -51,4 +51,40 @@ int find_capital_gains(Queue &bought, Queue &sold)
         }
     }
     return gains;
+}
+
+void loadData(std::string filename, LinkedQueue<Transaction*>& q) {
+    std::ifstream file(filename);
+
+    if (!file) {
+        std::cout << "Error opening file." << std::endl;
+        return;
+    }
+
+    int numEntries;
+    file >> numEntries;
+    file.ignore(); // Ignore newline character
+
+    for (int i = 0; i < numEntries; i++) {
+        std::string line;
+        getline(file, line);
+        std::stringstream ss(line);
+
+        std::string quantityStr, priceStr, dateString;
+        getline(ss, quantityStr, ',');
+        getline(ss, priceStr, ',');
+        getline(ss, dateString, ',');
+
+        int quantity = stoi(quantityStr);
+        double price = stod(priceStr);
+
+        int year = stoi(dateString.substr(0, 4));
+        int month = stoi(dateString.substr(4, 2));
+        int day = stoi(dateString.substr(6, 2));
+
+        Transaction* t = new Transaction(quantity, price, Date(day, month, year));
+        q.enqueue(t);
+    }
+
+    file.close();
 }
