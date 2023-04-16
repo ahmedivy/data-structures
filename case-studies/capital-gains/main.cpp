@@ -79,7 +79,7 @@ void loadData(std::string filename, LinkedQueue<Transaction *> &q)
         getline(ss, dateString, ',');
 
         int quantity = stoi(quantityStr);
-        double price = stod(priceStr);
+        int price = stoi(priceStr);
 
         int year = stoi(dateString.substr(0, 4));
         int month = stoi(dateString.substr(4, 2));
