@@ -3,73 +3,112 @@
 #include <iostream>
 #include <string>
 
-#include "LinkedList.h"
-
 template <typename T>
 class LinkedStack
 {
-    private:
-        LinkedList<T>* list;
-
+private:
+    class Node
+    {
     public:
-        LinkedStack();
-        ~LinkedStack();
-        void push(T data);
-        T pop();
-        T peek();
-        int size();
-        bool isEmpty();
-        void display();
-};
+        T data;
+        Node *next;
+        Node(T data) : data(data), next(nullptr) {}
+    };
+    Node *top;
+    int count;
 
-// Implementation of LinkedStack Methods
+public:
+    LinkedStack();
+    ~LinkedStack();
+    T pop();
+    T peek();
+    void push(T data);
+    int size();
+    bool isEmpty();
+    void display();
+};
 
 template <typename T>
 LinkedStack<T>::LinkedStack()
 {
-    list = new LinkedList<T>();
-}
-
-template <typename T>
-LinkedStack<T>::~LinkedStack()
-{
-    delete list;
+    top = nullptr;
+    count = 0;
 }
 
 template <typename T>
 void LinkedStack<T>::push(T data)
 {
-    list->insertFront(data);
+    Node *temp = new Node(data);
+    temp->next = top;
+    top = temp;
+    count++;
 }
 
 template <typename T>
 T LinkedStack<T>::pop()
 {
-    T data = list->getHeadPtr()->data;
-    list->deleteFront();
-    return data;
+    if (isEmpty())
+    {
+        std::cout << "Stack is empty" << std::endl;
+        return 0;
+    }
+    else
+    {
+        Node *temp = top;
+        T data = temp->data;
+        top = top->next;
+        delete temp;
+        count--;
+        return data;
+    }
 }
 
 template <typename T>
 T LinkedStack<T>::peek()
 {
-    return list->getHeadPtr()->data;
+    if (isEmpty())
+    {
+        std::cout << "Stack is empty" << std::endl;
+        return 0;
+    }
+    else
+    {
+        return top->data;
+    }
 }
 
 template <typename T>
 int LinkedStack<T>::size()
 {
-    return list->length();
+    return count;
 }
 
 template <typename T>
 bool LinkedStack<T>::isEmpty()
 {
-    return list->isEmpty();
+    return count == 0;
 }
 
 template <typename T>
 void LinkedStack<T>::display()
 {
-    list->display();
+    Node *temp = top;
+    while (temp != nullptr)
+    {
+        std::cout << temp->data << " ";
+        temp = temp->next;
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+LinkedStack<T>::~LinkedStack()
+{
+    Node *temp = top;
+    while (temp != nullptr)
+    {
+        Node *next = temp->next;
+        delete temp;
+        temp = next;
+    }
 }
