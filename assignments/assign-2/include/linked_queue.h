@@ -4,32 +4,32 @@
 #include <string>
 
 template <typename T>
-class LinkedQueue 
+class LinkedQueue
 {
-private:
-    class Node
-    {
+    private:
+        class Node
+        {
+            public:
+                T data;
+                Node* next;
+                Node(T data) : data(data), next(nullptr) {}
+        };
+
+        Node* head;
+        Node* tail;
+        int size;
+
     public:
-        T data;
-        Node *next;
-        Node(T data) : data(data), next(nullptr) {}
-    };
-
-    Node *head;
-    Node *tail;
-    int size;
-
-public:
-    LinkedQueue();
-    ~LinkedQueue();
-    bool isEmpty();
-    int getSize();
-    void enqueue(T data);
-    T dequeue();
-    T peek();
-    void print();
-    void reverse();
-    T removeSecond();
+        LinkedQueue();
+        ~LinkedQueue();
+        bool isEmpty();
+        int getSize();
+        void enqueue(T data);
+        T dequeue();
+        T peek();
+        void print();
+        void reverse();
+        T removeSecond();
 };
 
 template <typename T>
@@ -38,10 +38,9 @@ LinkedQueue<T>::LinkedQueue() : head(nullptr), tail(nullptr), size(0) {}
 template <typename T>
 LinkedQueue<T>::~LinkedQueue()
 {
-    Node *current = head;
-    while (current != nullptr)
-    {
-        Node *next = current->next;
+    Node* current = head;
+    while (current != nullptr) {
+        Node* next = current->next;
         delete current;
         current = next;
     }
@@ -62,7 +61,7 @@ int LinkedQueue<T>::getSize()
 template <typename T>
 void LinkedQueue<T>::enqueue(T data)
 {
-    Node *newNode = new Node(data);
+    Node* newNode = new Node(data);
     if (isEmpty())
     {
         head = tail = newNode;
@@ -82,7 +81,7 @@ T LinkedQueue<T>::dequeue()
     {
         throw std::string("Queue is empty");
     }
-    Node *temp = head;
+    Node* temp = head;
     T data = temp->data;
     head = head->next;
     delete temp;
@@ -103,7 +102,7 @@ T LinkedQueue<T>::peek()
 template <typename T>
 void LinkedQueue<T>::print()
 {
-    Node *current = head;
+    Node* current = head;
     while (current != nullptr)
     {
         std::cout << current->data << " ";
