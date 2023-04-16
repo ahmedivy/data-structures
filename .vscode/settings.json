@@ -62,11 +62,16 @@
     "optional": "cpp",
     "random": "cpp",
     "string_view": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "cinttypes": "cpp"
   },
   "cmake.sourceDirectory": [
     "${workspaceFolder}/case-studies/capital-gains",
     "${workspaceFolder}/case-studies/solving-maze/cpp-sol",
     "${workspaceFolder}/assignments/assign-2"
-  ]
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8"
+  },
+  "python.formatting.provider": "none"
 }
