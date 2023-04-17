@@ -28,6 +28,8 @@ class LinkedList
         void insertBack(T data);
         void popFront();
         void popBack();
+        void insertAt(int index, T data);
+        void removeAt(int index);
         int length();
         bool isEmpty();
         std::string display();
@@ -77,6 +79,65 @@ void LinkedList<T>::insertBack(T data)
         tail = newNode;
     }
     size++;
+}
+
+template <typename T>
+void LinkedList<T>::insertAt(int index, T data)
+{
+    if (index < 0 || index > size)
+    {
+        throw std::runtime_error("Index out of bounds!");
+    }
+    else if (index == 0)
+    {
+        insertFront(data);
+    }
+    else if (index == size)
+    {
+        insertBack(data);
+    }
+    else
+    {
+        Node* newNode = new Node(data);
+        Node* current = head;
+        for (int i = 0; i < index - 1; i++)
+        {
+            current = current->next;
+        }
+        newNode->next = current->next;
+        newNode->prev = current;
+        current->next = newNode;
+        size++;
+    }
+}
+
+template <typename T>
+void LinkedList<T>::removeAt(int index)
+{
+    if (index < 0 || index >= size)
+    {
+        throw std::runtime_error("Index out of bounds!");
+    }
+    else if (index == 0)
+    {
+        popFront();
+    }
+    else if (index == size - 1)
+    {
+        popBack();
+    }
+    else
+    {
+        Node* current = head;
+        for (int i = 0; i < index; i++)
+        {
+            current = current->next;
+        }
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
+        delete current;
+        size--;
+    }
 }
 
 template <typename T>

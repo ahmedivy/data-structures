@@ -21,6 +21,8 @@ class CircularLinkedList
     public:
         CircularLinkedList();
         ~CircularLinkedList();
+        void insertAt(int index, T data);
+        void removeAt(int index);
         void insertFront(T data);
         void insertBack(T data);
         void removeFront();
@@ -39,6 +41,66 @@ CircularLinkedList<T>::~CircularLinkedList()
     while (!isEmpty())
     {
         removeFront();
+    }
+}
+
+template <typename T>
+void CircularLinkedList<T>::insertAt(int index, T data)
+{
+    if (index < 0 || index > size)
+    {
+        std::cout << "Index out of bounds" << std::endl;
+        return;
+    }
+    if (index == 0)
+    {
+        insertFront(data);
+    }
+    else if (index == size)
+    {
+        insertBack(data);
+    }
+    else
+    {
+        Node* newNode = new Node(data);
+        Node* temp = last->next;
+        for (int i = 0; i < index - 1; i++)
+        {
+            temp = temp->next;
+        }
+        newNode->next = temp->next;
+        temp->next = newNode;
+        size++;
+    }
+}
+
+template <typename T>
+void CircularLinkedList<T>::removeAt(int index)
+{
+    if (index < 0 || index >= size)
+    {
+        std::cout << "Index out of bounds" << std::endl;
+        return;
+    }
+    if (index == 0)
+    {
+        removeFront();
+    }
+    else if (index == size - 1)
+    {
+        removeBack();
+    }
+    else
+    {
+        Node* temp = last->next;
+        for (int i = 0; i < index - 1; i++)
+        {
+            temp = temp->next;
+        }
+        Node* toDelete = temp->next;
+        temp->next = toDelete->next;
+        delete toDelete;
+        size--;
     }
 }
 
