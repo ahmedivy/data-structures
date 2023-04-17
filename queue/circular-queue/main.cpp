@@ -1,5 +1,6 @@
 #include <iostream>
-#include "queue.h"
+// #include "queue.h"
+#include "dynamic-queue.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int main()
 
 void printMenu()
 {
-    Queue<int> q(30);
+    CircularQueue<int> q;
     int choice;
     int data;
     do
@@ -36,7 +37,8 @@ void printMenu()
             cout << "Dequeued: " << q.dequeue() << endl;
             break;
         case 3:
-            cout << "Queue: " << q.display() << endl;
+            cout << "Queue: ";
+            q.display();
             break;
         case 4:
             exit(0);
