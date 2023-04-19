@@ -105,3 +105,4 @@ void print_tree(Node* node, int level, bool is_left)
     std::cout << prefix << node->data << std::endl;
     print_tree(node->left, level+1, true);
 }
+
