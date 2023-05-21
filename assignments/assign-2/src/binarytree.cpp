@@ -22,7 +22,7 @@ Node *find_parent(Node *root, int key)
 int find_level(Node *root, int key, int level)
 {
     if (root == nullptr && level == 0)
-        return -1;
+        return 0;
     if (root->data == key && level == 0)
         return 0;
     if (root->left && root->left->data == key)
