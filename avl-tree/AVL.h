@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stack>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -14,6 +15,7 @@ public:
     const T &find(const T &key);
     bool contains(const T &key);
     const T &remove(const T &key);
+    void print() const;
 
 private:
     class Node
@@ -35,7 +37,7 @@ private:
     void _find_and_insert(const T &key, Node *&curr);
     const T &_find_and_remove(const T &key, Node *&curr);
     const T &_iop_remove(Node *&target);
-    const T &_iopRemove(Node *&targetNode, Node *&iopAncestor, bool isInitialCall);
+    const T &_iop_remove(Node *&target, Node *&ancestor, bool isInitial);
     Node *&_swap_nodes(Node *&node1, Node *&node2);
     void _update_height(Node *&curr);
     void _ensure_balance(Node *&curr);
@@ -43,14 +45,8 @@ private:
     void _rotate_right(Node *&curr);
     void _rotate_right_left(Node *&curr);
     void _rotate_left_right(Node *&curr);
-
-    int _get_height(Node *&node) const
-    {
-        return !node ? -1 : node->height;
-    }
-
-    int _get_balance_factor(Node *&node) const
-    {
-        return !node ? 0 : _get_height(node->right) - _get_height(node->left);
-    }
+    int _get_height(Node *&node) const;
+    int _get_balance_factor(Node *&node) const;
 };
+
+#include "AVL.hpp"
