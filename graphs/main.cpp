@@ -36,5 +36,6 @@ int main()
     g.insertEdge(v1, v4, 11);
 
     g.bfs();
+
     return 0;
 }
