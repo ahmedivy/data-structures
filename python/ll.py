@@ -28,7 +28,7 @@ class LinkedList:
         return self.size
 
     def __str__(self) -> str:
-        return "[" + ", ".join([str(node) for node in self]) + "]"
+        return str([str(node) for node in self])
 
     def __iter__(self) -> Generator:
         curr = self.head
@@ -119,3 +119,11 @@ class LinkedList:
 
         self.size -= 1
         return node.data
+
+if __name__ == "__main__":
+    list = LinkedList()
+    list.append(1)
+    list.append(2)
+    list.append(3)
+    list.append(4)
+    print(list)
