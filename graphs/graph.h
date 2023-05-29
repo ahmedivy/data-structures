@@ -92,11 +92,9 @@ public:
         std::queue<Vertex *> q;
         int *colors = new int[size];
         for (int i = 0; i < size; i++)
-        {
             colors[i] = 0;
-        }
-        colors[4] = 1;
-        q.push(&vertices[4]);
+        colors[0] = 1;
+        q.push(&vertices[0]);
         while (!q.empty())
         {
             Vertex *v = q.front();
