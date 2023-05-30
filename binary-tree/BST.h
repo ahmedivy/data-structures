@@ -44,6 +44,7 @@ class BST
         Node* _findParent(const T& data, Node* root);
         Node* findParent(const T& data);
         Node* findSibling(const T& data);
+        bool isAVL(Node* node);
 };
 
 
@@ -354,4 +355,17 @@ typename BST<T>::Node* BST<T>::findSibling(const T& data)
         return parent->left;
     }
     return nullptr;
+}
+
+
+template <typename T>
+bool BST<T>::isAVL(Node* node)
+{
+    if (node == nullptr)
+        return true;
+    int leftHeight = height(node->left);
+    int rightHeight = height(node->right);
+    if (abs(leftHeight - rightHeight) > 1)
+        return false;
+    return isAVL(node->left) && isAVL(node->right);
 }
