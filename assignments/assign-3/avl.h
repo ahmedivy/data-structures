@@ -28,7 +28,12 @@ private:
             this->key = key;
             this->left = left;
             this->right = right;
-            this->height = 1 + std::max(left->height, right->height);
+            this->height = 1 + std::max(nodeHeight(left), nodeHeight(right));
+        }
+
+        int nodeHeight(Node *node)
+        {
+            return node == nullptr ? -1 : node->height;
         }
     };
 
@@ -38,8 +43,8 @@ public:
     AVL();
     AVL(int *arr, int size);
     void insert(int data);
-    Node *grow(Node *node, int key);
     int height(Node *node);
+    Node *grow(Node *node, int key);
     void reBalance(Node *node);
     void rotateLeft(Node *node);
     void rotateRight(Node *node);

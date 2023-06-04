@@ -24,12 +24,14 @@ int main()
     std::cout << (tree.isAVL() ? "Tree is AVL" : "Not an AVL Tree") << std::endl;
 
     // Question 1 (Part 3)
-    int data[] = {1, 2, 3, 4, 5};
-    AVL *avl = new AVL(data, 5);
+    std::cout << "----AVL----" << std::endl;
+
+    int data[] = {5, 3, 7, 2, 4, 6};
+    AVL *avl = new AVL(data, 6);
     avl->print();
 
     // Question 1 (Part 2)
-    std::cout << "Tree contains 4: " << avl->contain(1) << std::endl;
+    std::cout << "Tree contains 4: " << avl->contain(4) << std::endl;
 
     // Question 2
 
