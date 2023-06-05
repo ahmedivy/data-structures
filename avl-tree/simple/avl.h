@@ -42,14 +42,18 @@ private:
 public:
     AVL();
     AVL(int *arr, int size);
+    void print();
+    int size();
+    int size(Node* node);
     void insert(int data);
+    bool remove(int data);
+    bool contain(int data);
     int height(Node *node);
-    Node *grow(Node *node, int key);
     void reBalance(Node *node);
     void rotateLeft(Node *node);
     void rotateRight(Node *node);
-    void print();
-    bool contain(int data);
+    Node *grow(Node *node, int key);
+    Node *shrink(Node *node, int key);
 };
 
 AVL::AVL()
@@ -62,6 +66,18 @@ AVL::AVL(int *arr, int size)
     this->root = nullptr;
     for (int i = 0; i < size; i++)
         this->insert(arr[i]);
+}
+
+int AVL::size()
+{
+    return size(root);
+}
+
+int AVL::size(Node* node)
+{
+    if (node == nullptr)
+        return 0;
+    return 1 + size(node->left) + size(node->right);
 }
 
 void AVL::insert(int data)
@@ -138,6 +154,56 @@ bool AVL::contain(int value)
         else if (value < node->key)
             node = node->left;
     }
+    return node;
+}
+
+bool AVL::remove(int key)
+{
+    int oldSize = size();
+    this->root = shrink(root, key);
+    return oldSize > size();
+}
+
+typename AVL::Node *AVL::shrink(AVL::Node *node, int key)
+{
+    if (node == nullptr)
+        return nullptr;
+
+    if (key < node->key)
+        node->left = shrink(node->left, key);
+    else if (key > node->key)
+        node->right = shrink(node->right, key);
+    else
+    {
+        if (node->left == nullptr && node->right == nullptr)
+        {
+            delete node;
+            return nullptr;
+        }
+        else if (node->left == nullptr)
+        {
+            Node *temp = node->right;
+            delete node;
+            return temp;
+        }
+        else if (node->right == nullptr)
+        {
+            Node *temp = node->left;
+            delete node;
+            return temp;
+        }
+        else
+        {
+            Node *temp = node->right;
+            while (temp->left != nullptr)
+                temp = temp->left;
+            node->key = temp->key;
+            node->right = shrink(node->right, temp->key);
+        }
+    }
+
+    reBalance(node);
+    node->height = 1 + std::max(height(node->left), height(node->right));
     return node;
 }
 
