@@ -34,7 +34,7 @@ public:
     void insert(T data);
     T remove();
     Node *sibling(Node *node);
-    Node *parent(Node *node);
+    Node *parent(Node* root, Node *node);
     void print();
     bool isEmpty();
 };
@@ -53,22 +53,30 @@ HeapTree<T>::~HeapTree()
 }
 
 template <typename T>
-typename HeapTree<T>::Node *HeapTree<T>::parent(Node *node)
+typename HeapTree<T>::Node *HeapTree<T>::parent(Node* root, Node *node)
 {
-    if (node == root)
+    if (root == nullptr || root == node)
         return nullptr;
 
-    Node *parent = root;
-    while (parent->left != node && parent->right != node)
-        parent = parent->left != nullptr ? parent->left : parent->right;
+    if (root->left == node || root->right == node)
+        return root;
 
-    return parent;
+    Node *left = parent(root->left, node);
+    Node *right = parent(root->right, node);
+
+    if (left != nullptr)
+        return left;
+    
+    if (right != nullptr)
+        return right;
+
+    return nullptr;
 }
 
 template <typename T>
 typename HeapTree<T>::Node *HeapTree<T>::sibling(Node *node)
 {
-    Node *parent = this->parent(node);
+    Node *parent = this->parent(root, node);
 
     if (parent == nullptr)
         return nullptr;
@@ -82,7 +90,7 @@ void HeapTree<T>::heapifyUp(Node *node)
     if (node == root)
         return;
 
-    Node *parent = this->parent(node);
+    Node *parent = this->parent(root, node);
     if (parent->data < node->data)
     {
         std::swap(parent->data, node->data);
@@ -113,31 +121,38 @@ template <typename T>
 void HeapTree<T>::insert(T data)
 {
     Node *newNode = new Node(data);
-    Node *parent = this->parent(last);
+    Node *parent = this->parent(root, last);
 
     if (isEmpty())
+    {
         root = last = newNode;
+        return;
+    }
     else if (root == last)
         root->left = newNode;
     else if (parent->left == last)
         parent->right = newNode;
     else
     {
-        Node *curr = last;
-        while (parent != root && parent->left != curr)
+        Node *curr = parent;
+        parent = this->parent(root, parent);
+        while (curr != root && parent->left != curr)
         {
             curr = parent;
-            parent = this->parent(parent);
+            parent = this->parent(root, curr);
         }
-        if (parent == root)
+        if (curr == root)
         {
-            while (parent->left != nullptr)
-                parent = parent->left;
-            parent->left = newNode;
+            while (curr->left != nullptr)
+                curr = curr->left;
+            curr->left = newNode;
         }
-        else if (parent->left == curr)
+        else
         {
-            parent->right = newNode;
+            curr = parent->right;
+            while (curr->left != nullptr)
+                curr = curr->left;
+            curr->left = newNode;
         }
     }
     heapifyUp(newNode);
@@ -159,7 +174,7 @@ T HeapTree<T>::remove()
     }
 
     std::swap(root->data, last->data);
-    Node *parent = this->parent(last);
+    Node *parent = this->parent(root, last);
     Node *curr = last;
 
     if (parent->right == last)
@@ -175,7 +190,7 @@ T HeapTree<T>::remove()
         while (parent != root && parent->right != curr)
         {
             curr = parent;
-            parent = this->parent(parent);
+            parent = this->parent(root, parent);
         }
 
         // If root node --> last = most right node of root
