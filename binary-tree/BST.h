@@ -369,3 +369,13 @@ bool BST<T>::isAVL(Node* node)
         return false;
     return isAVL(node->left) && isAVL(node->right);
 }
+
+// left = isavl(node->left)
+// right = isavl(node->right)
+
+// if (left == -1 || right == -1)
+//     retrun -1
+// elif abs(left - right) > 1
+//     return -1
+// else
+// return max(left, right) + 1
