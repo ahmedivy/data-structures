@@ -1,7 +1,7 @@
 name: Create diagram
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 */3 * *"
 jobs:
   get_data:
     runs-on: ubuntu-latest
